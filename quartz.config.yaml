@@ -11,6 +11,8 @@ configuration:
     - .DS_Store
     - 插入的图片
     - 附件
+    - _整理报告.md
+    - _整理总报告.md
   theme:
     fontOrigin: googleFonts
     cdnCaching: true
@@ -113,18 +115,6 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
-    options:
-      filter:
-        - ![[regex]] ^\.obsidian$
-        - ![[regex]] ^\.DS_Store$
-        - ![[regex]] ^插入的图片$
-        - ![[regex]] ^附件$
-        - ![[regex]] ^_整理
-        - ![[regex]] ^「
-      sort:
-        - property: displayName
-          order: asc
-          locale: zh-CN
     layout:
       position: left
       priority: 50
