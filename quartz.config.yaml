@@ -5,7 +5,7 @@ configuration:
   enableSPA: true
   enablePopovers: true
   locale: zh-CN
-  baseUrl: mlmi-hust.github.io
+  baseUrl: mlmi-hust.github.io/lab-wiki
   ignorePatterns:
     - .obsidian
     - .DS_Store
