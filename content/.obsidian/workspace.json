@@ -11,14 +11,10 @@
             "id": "929c0b7974877c69",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "欢迎.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "欢迎"
+              "title": "新标签页"
             }
           }
         ]
@@ -184,11 +180,12 @@
       "bases:新建数据库": false
     }
   },
-  "active": "59401030393c299f",
+  "active": "929c0b7974877c69",
   "lastOpenFiles": [
+    "欢迎.md",
+    "index.md",
     "杂谈/_索引.md",
     "贡献指南.md",
-    "欢迎.md",
     "表征库/_索引.md",
     "玩转AI/_索引.md",
     "工艺库/_索引.md",
@@ -210,7 +207,6 @@
     "玩转AI/_整理报告.md",
     "杂谈/_整理报告.md",
     "工艺库/MACE工艺.md",
-    "工艺库/AZ5214E光刻工艺.md",
-    "工艺库/磁控溅射（B821大磁控）.md"
+    "工艺库/AZ5214E光刻工艺.md"
   ]
 }

@@ -140,7 +140,7 @@ def generate_index_for_dir(dir_path: Path) -> str:
     out.append(f"updated: {today}")
     out.append("---")
     out.append("")
-    out.append("[[欢迎|🏠 返回主页]]")
+    out.append("[[index|🏠 返回主页]]")
     out.append("")
     out.append(f"# {dir_name}索引")
     out.append("")
@@ -161,8 +161,8 @@ def generate_index_for_dir(dir_path: Path) -> str:
 
 
 def generate_homepage(content_dir: Path) -> bool:
-    """如果欢迎.md不存在，生成首页.md。返回是否生成。"""
-    if (content_dir / "欢迎.md").exists():
+    """如果 index.md 不存在，生成首页.md。返回是否生成。"""
+    if (content_dir / "index.md").exists():
         return False
     today = date.today().isoformat()
     home = content_dir / "首页.md"
@@ -220,7 +220,7 @@ def main() -> int:
         print("✓ 生成 首页.md")
         generated += 1
     else:
-        print("· 欢迎.md 已存在，跳过首页生成")
+        print("· index.md 已存在，跳过首页生成")
 
     print(f"\n完成：共生成 {generated} 个文件")
     return 0
