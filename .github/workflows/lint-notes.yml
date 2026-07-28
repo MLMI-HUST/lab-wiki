@@ -17,10 +17,10 @@ jobs:
           python-version: "3.12"
 
       - name: Check notes
-        run: python scripts/check_notes.py
+        run: python scripts/check_notes.py content/
 
       - name: Check wikilinks
-        run: python scripts/check_wikilinks.py
+        run: python scripts/check_wikilinks.py content/
 
       - name: Check attachments
-        run: python scripts/check_attachments.py
+        run: python scripts/check_attachments.py content/
