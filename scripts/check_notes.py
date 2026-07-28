@@ -69,7 +69,7 @@ def parse_frontmatter(text: str) -> dict | None:
     return fields
 
 
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DATE_RE = re.compile(r"^\d{4}-\d{2}(-\d{2})?$")
 
 
 def check_note(path: Path) -> list[str]:
@@ -94,11 +94,11 @@ def check_note(path: Path) -> list[str]:
 
     created = fields.get("created")
     if not isinstance(created, str) or not DATE_RE.match(created):
-        errors.append(f"created 字段格式错误: {created!r}（应为 YYYY-MM-DD）")
+        errors.append(f"created 字段格式错误: {created!r}（应为 YYYY-MM 或 YYYY-MM-DD）")
 
     updated = fields.get("updated")
     if not isinstance(updated, str) or not DATE_RE.match(updated):
-        errors.append(f"updated 字段格式错误: {updated!r}（应为 YYYY-MM-DD）")
+        errors.append(f"updated 字段格式错误: {updated!r}（应为 YYYY-MM 或 YYYY-MM-DD）")
 
     return errors
 
