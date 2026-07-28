@@ -1,0 +1,26 @@
+name: Lint Notes
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check notes
+        run: python scripts/check_notes.py
+
+      - name: Check wikilinks
+        run: python scripts/check_wikilinks.py
+
+      - name: Check attachments
+        run: python scripts/check_attachments.py

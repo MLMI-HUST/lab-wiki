@@ -1,0 +1,197 @@
+.header-image {
+    background-color: rgb(232, 232, 232);
+    border-radius: 16px;
+    justify-items: center;
+    padding: 24px;
+    overflow: hidden;
+    z-index: 0;
+    height: 420px;
+    cursor: default;
+}
+
+.genshin {
+    background-color: white;
+    position: relative;
+    z-index: 3;
+    transform: scale(113%);
+    animation: genshin-out 5s linear 1;
+}
+
+.genshin > img {
+    animation: genshin-in 1s linear 1;
+}
+
+@keyframes genshin-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes genshin-out {
+    from { top: -845px; opacity: 1; }
+    60% { top: -845px; opacity: 1; }
+    80% { top: -845px; opacity: 0; }
+    to { top: 0px; opacity: 0; }
+}
+
+.bkg-text {
+    padding: 0px;
+    margin: 0px;
+    color: rgba(0, 131, 87, 0.3);
+    font-size: 120px;
+    font-weight: bold;
+    line-height: 108px;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.bkg-text:hover {
+    color: rgba(0, 131, 87, 0.5);
+}
+
+.bkg-emoji {
+    position: relative;
+    top: -420px;
+    right: -284px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 256px;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.greet {
+    position: relative;
+    color: rgb(0, 88, 58);
+    font-weight: bold;
+    font-size: 48px;
+    top: -150px;
+    z-index: 3;
+    transition: 0.5s;
+}
+
+.greet:hover,
+.bkg-emoji:hover {
+    transform: scale(120%);
+}
+
+.whats-this {
+    background-color: rgb(0, 192, 128);
+    color: white;
+    border-radius: 24px;
+    text-align: center;
+    align-content: center;
+    justify-self: center;
+    overflow: hidden;
+    cursor: default;
+    width: 192px;
+    height: 48px;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+}
+
+.whats-this > p, 
+.whats-this > h1 {
+    margin: 0px;
+}
+
+.whats-this:hover {
+    background-color: rgb(232, 232, 232);
+    color: rgb(0, 88, 58);
+    width: 100%;
+    height: 78px;
+    margin: 0px;
+    border-radius: 16px;
+}
+
+.whats-new {
+    background-color: rgb(232, 232, 232);
+    color: rgb(0, 88, 58);
+    border-radius: 24px;
+    text-align: center;
+    align-content: center;
+    justify-self: center;
+    overflow: hidden;
+    cursor: default;
+    width: 256px;
+    height: 48px;
+    transition: 0.5s;
+}
+
+.whats-new:hover {
+    background-color: rgb(255, 208, 88);
+    color:white
+}
+
+.rules {
+    background-color: rgb(232, 232, 232);
+    color: black;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    padding: 8px;
+    gap: 8px;
+}
+
+.rules > h1 {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin: 0px
+}
+
+.rules > div {
+    background-color: rgb(242, 242, 242);
+    border-radius: 8px;
+    padding: 12px;
+    max-height: 240px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.rules > div > h2 {
+    margin: 0px;
+    transition: 0.5s;
+}
+
+.rule-emoji {
+    position: relative;
+    opacity: 0.4;
+    margin: 0px;
+    padding: 0px;
+    font-size: 144px;
+    top: 20px;
+    left: -56px;
+    transform: rotate(15deg);
+}
+
+.rule-emoji + p {
+    position: relative;
+    top: -232px
+}
+
+.rule-1:hover {
+    background-color: rgb(216, 255, 255);
+}
+
+.rule-1:hover > h2 {
+    color:navy
+}
+
+.rule-2:hover {
+    background-color: rgb(216, 255, 192);
+}
+
+.rule-2:hover > h2 {
+    color:green
+}
+
+.rule-3:hover {
+    background-color: rgb(255, 255, 192);
+}
+
+.rule-3:hover > h2 {
+    color:peru
+}

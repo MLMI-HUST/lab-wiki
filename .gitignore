@@ -1,0 +1,19 @@
+# Obsidian 个人配置
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+
+# Quartz 构建产物
+public/
+.quartz-cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 本地配置（如有）
+config.local.yaml

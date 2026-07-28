@@ -1,0 +1,12 @@
+{
+  "name": "lab-wiki",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "quartz build",
+    "serve": "quartz build --serve"
+  },
+  "dependencies": {
+    "@quartz/core": "^4.4.0"
+  }
+}
