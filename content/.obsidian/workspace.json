@@ -11,10 +11,14 @@
             "id": "929c0b7974877c69",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "工艺库/AZ5214E光刻工艺.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "AZ5214E光刻工艺"
             }
           }
         ]
@@ -70,8 +74,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,6 +185,8 @@
   },
   "active": "929c0b7974877c69",
   "lastOpenFiles": [
+    "工艺库/Cr lift-off 与去Cr.md",
+    "工艺库/AZ5214E光刻工艺.md",
     "欢迎.md",
     "index.md",
     "杂谈/_索引.md",
@@ -205,8 +210,6 @@
     "工艺库/_整理报告.md",
     "光刻知识库/_整理报告.md",
     "玩转AI/_整理报告.md",
-    "杂谈/_整理报告.md",
-    "工艺库/MACE工艺.md",
-    "工艺库/AZ5214E光刻工艺.md"
+    "杂谈/_整理报告.md"
   ]
 }
