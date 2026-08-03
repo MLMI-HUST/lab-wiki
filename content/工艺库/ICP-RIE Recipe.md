@@ -8,6 +8,12 @@ created: 2025-01-01
 updated: 2026-01-01
 ---
 
+<!-- stale-warning -->
+> [!warning] 此笔记已超过 214 天未更新
+> 最后更新：2026-01-01。内容可能已过时，请有经验的组员复核后移除此提示。
+> 复核后将 frontmatter 的 `updated` 字段更新为今天即可自动移除。
+<!-- /stale-warning -->
+
 ## 浅硅 ICP
 
 | 材料 | 速率 | 更新时间 | 腔压 | 温度 | RF | ICP | SF₆ | C₄F₈ | CHF₃ | Ar | O₂ |
