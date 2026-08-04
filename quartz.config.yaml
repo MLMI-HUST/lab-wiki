@@ -209,7 +209,7 @@ plugins:
     enabled: true
     options:
       title: 最近更新
-      limit: 8
+      limit: 6
       showTags: false
       hideFolderPages: true
       hideTagPages: true

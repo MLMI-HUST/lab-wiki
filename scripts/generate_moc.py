@@ -135,7 +135,6 @@ def generate_index_for_dir(dir_path: Path) -> str:
     out.append(f'title: "{dir_name}索引"')
     out.append("tags:")
     out.append("  - 索引")
-    out.append("unlisted: true")
     out.append(f"created: {today}")
     out.append(f"updated: {today}")
     out.append("---")

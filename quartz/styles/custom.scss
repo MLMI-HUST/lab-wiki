@@ -1,3 +1,32 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+// ============================================================
+// lab-wiki 自定义样式
+// 仅通过 CSS 覆盖，不修改 Quartz 框架逻辑
+// ============================================================
+
+// 右侧栏组件高度约束
+// 右侧栏为 sticky + 100vh 的 flex 容器，加入"最近更新"后内容总高
+// 超过视口，flex 默认压缩所有子元素，导致 TOC 被挤压遮挡。
+// 解决：各组件限制高度、内部滚动，不参与 flex 压缩。
+@media all and ($desktop) {
+  .sidebar.right {
+    & > .graph-outer {
+      flex: 0 0 auto; // 图谱保持固定 250px
+    }
+    & > .toc {
+      flex: 0 1 auto; // 目录允许适度压缩
+      min-height: 2rem;
+    }
+    & > .recent-notes {
+      flex: 0 0 auto; // 不参与压缩
+      max-height: 16rem;
+      overflow-y: auto;
+    }
+    & > .backlinks {
+      flex: 0 0 auto; // 不参与压缩
+      max-height: 12rem;
+      overflow-y: auto;
+    }
+  }
+}
