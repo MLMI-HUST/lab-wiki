@@ -60,7 +60,9 @@ def main() -> int:
         rel = md_file.relative_to(content_dir)
         for link in extract_wikilinks(text):
             target = link.split("/")[-1]  # 处理 子目录/笔记 形式
-            if target not in all_stems:
+            # 处理 Obsidian 锚点链接 [[笔记名#锚点|显示名]]
+            target = target.split("#")[0].strip()
+            if target and target not in all_stems:
                 all_errors.append(f"{rel}: 断链 [[{link}]]")
 
     if all_errors:
