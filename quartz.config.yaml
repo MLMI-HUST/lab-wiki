@@ -197,7 +197,7 @@ plugins:
         - tags
         - aliases
       excludedProperties: []
-      hidePropertiesView: false
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5
@@ -205,6 +205,17 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+  - source: "@quartz-community/recent-notes"
+    enabled: true
+    options:
+      title: 最近更新
+      limit: 8
+      showTags: false
+      hideFolderPages: true
+      hideTagPages: true
+    layout:
+      position: right
+      priority: 40
   - source: "@quartz-community/unlisted-pages"
     enabled: true
     options: {}

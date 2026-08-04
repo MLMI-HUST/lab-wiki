@@ -131,14 +131,16 @@ def generate_index_for_dir(dir_path: Path) -> str:
     dir_name = dir_path.name
 
     out: list[str] = []
-    out.append("<!-- AUTO-GENERATED: 请勿手动编辑 -->")
     out.append("---")
     out.append(f'title: "{dir_name}索引"')
     out.append("tags:")
     out.append("  - 索引")
+    out.append("unlisted: true")
     out.append(f"created: {today}")
     out.append(f"updated: {today}")
     out.append("---")
+    out.append("")
+    out.append("<!-- AUTO-GENERATED: 请勿手动编辑，运行 generate_moc.py 重新生成 -->")
     out.append("")
     out.append("[[index|🏠 返回主页]]")
     out.append("")
