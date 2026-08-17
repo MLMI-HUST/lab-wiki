@@ -3,30 +3,153 @@
 // ============================================================
 // lab-wiki 自定义样式
 // 仅通过 CSS 覆盖，不修改 Quartz 框架逻辑
+//
+// 右栏 DOM 结构（直接子元素均为组件根容器）：
+//   .sidebar.right
+//     ├─ .graph          (h3 + .graph-outer)
+//     ├─ .toc            (button.toc-header + ul.toc-content.overflow)
+//     ├─ .recent-notes   (h3 + ul.recent-ul)
+//     └─ .backlinks      (h3 + ul.overflow)
+//
+// 断点：≥1200px 桌面（右栏为 sticky 纵向列）；
+//       <1200px 平板/手机（右栏变为正文下方的横向 flex 行，TOC 由框架隐藏）
+//
+// 覆盖策略：所有布局覆盖选择器均以 .sidebar.right > 开头，
+// 保证比组件自带 CSS（.toc / .recent-notes / .backlinks 裸选择器）
+// 优先级更高，不依赖加载顺序。
 // ============================================================
 
-// 右侧栏组件高度约束
-// 右侧栏为 sticky + 100vh 的 flex 容器，加入"最近更新"后内容总高
-// 超过视口，flex 默认压缩所有子元素，导致 TOC 被挤压遮挡。
-// 解决：各组件限制高度、内部滚动，不参与 flex 压缩。
+// ---------- 1. 桌面端布局（≥1200px）----------
+// 右栏为 sticky + 100vh 的纵向 flex 容器。
+// 原则：图谱固定；目录优先（可增长吸收剩余空间、可收缩但保底）；
+// 最近更新/反向链接固定上限。滚动一律只作用于内层列表，标题不参与滚动。
+
 @media all and ($desktop) {
-  .sidebar.right {
-    & > .graph-outer {
-      flex: 0 0 auto; // 图谱保持固定 250px
-    }
-    & > .toc {
-      flex: 0 1 auto; // 目录允许适度压缩
-      min-height: 2rem;
-    }
-    & > .recent-notes {
-      flex: 0 0 auto; // 不参与压缩
-      max-height: 16rem;
+  // 图谱：保持组件自带的固定 250px 高度，不参与 flex 压缩
+  .sidebar.right > .graph {
+    flex: 0 0 auto;
+  }
+
+  // 目录：可增长（吸收右栏剩余空间）、可收缩（保底 5rem，标题+滚动列表始终可见）
+  .sidebar.right > .toc {
+    flex: 1 1 auto;
+    min-height: 5rem;
+
+    & > ul.toc-content {
       overflow-y: auto;
-    }
-    & > .backlinks {
-      flex: 0 0 auto; // 不参与压缩
-      max-height: 12rem;
-      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
     }
   }
+
+  // 最近更新：标题固定，列表区域内部滚动
+  .sidebar.right > .recent-notes {
+    flex: 0 1 auto; // 允许压缩，让位给目录
+    display: flex;
+    flex-direction: column;
+    max-height: 18rem;
+    min-height: 4rem;
+
+    & > h3 {
+      flex: 0 0 auto; // 标题固定，不参与滚动
+    }
+
+    & > ul.recent-ul {
+      flex: 1 1 auto;
+      min-height: 0; // flex 子元素内部滚动的必要条件
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+  }
+
+  // 反向链接：与最近更新相同模式（组件内嵌 ul 已带 .overflow 类，
+  // 基础样式已设 overflow-y: auto，这里只需限定高度与 flex 行为）
+  .sidebar.right > .backlinks {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 14rem;
+    min-height: 3rem;
+
+    & > h3 {
+      flex: 0 0 auto;
+    }
+
+    & > ul.overflow {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+  }
+}
+
+// ---------- 2. 窄屏布局（<1200px，右栏变为正文下方横向 flex 行）----------
+// 框架默认：子元素 flex: 1 + max-height: 24rem，TOC 隐藏。
+// 两个问题：
+//   a) flex 子元素默认 min-width: auto，图谱内 canvas 把 .graph 的
+//      min-content 撑得极大，把最近更新/反向链接挤成几十像素宽；
+//   b) recent-notes 内层 ul 无滚动约束，内容溢出容器底部。
+
+@media all and not ($desktop) {
+  // 关键修复 a)：强制 min-width: 0，让框架的 flex: 1（1 1 0%）真正均分宽度
+  .sidebar.right > * {
+    min-width: 0;
+  }
+
+  // 修复 b)：recent-notes 标题固定、列表滚动，严格限制在 24rem 内
+  .sidebar.right > .recent-notes {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // 兜底：容器绝不外溢
+
+    & > ul.recent-ul {
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: calc(24rem - 2.5rem); // 减去标题占用
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+  }
+
+  // backlinks 的 ul 已带 .overflow（overflow-y: auto），只需容器兜底裁剪
+  .sidebar.right > .backlinks {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  // 图谱容器在窄屏保持 250px 内高
+  .sidebar.right > .graph > .graph-outer {
+    height: 250px;
+  }
+}
+
+// ---------- 3. 统一右栏三个文字栏的字号与节奏（所有断点）----------
+// recent-notes 的条目标题用的是 h3 标签（继承基础样式 1.12rem），
+// 而 toc / backlinks 的条目是 a 标签——统一为一致字号。
+
+.sidebar.right > .toc > ul.toc-content > li > a,
+.sidebar.right > .recent-notes > ul.recent-ul > li .section > .desc > h3 > a,
+.sidebar.right > .backlinks > ul.overflow > li > a {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+// recent-notes 条目内的 h3 去掉默认字号/外边距/加粗（字号由上面 a 规则接管）
+.sidebar.right > .recent-notes > ul.recent-ul > li .section > .desc > h3 {
+  font-size: inherit;
+  margin: 0;
+  font-weight: normal;
+}
+
+// 最近更新条目的时间戳
+.sidebar.right > .recent-notes > ul.recent-ul > li .section > .meta {
+  font-size: 0.75rem;
+  margin: 0.15rem 0 0 0;
+  opacity: 0.6;
+}
+
+// 条目间距：压缩组件默认的 1rem，使 6 条内容更紧凑
+.sidebar.right > .recent-notes > ul.recent-ul > li {
+  margin: 0.5rem 0;
 }
