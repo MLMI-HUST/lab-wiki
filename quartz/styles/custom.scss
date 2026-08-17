@@ -35,6 +35,18 @@
     flex: 1 1 auto;
     min-height: 5rem;
 
+    // 折叠态：组件通过 .toc:has(button.collapsed){flex:0 1 1.4rem} 收缩容器，
+    // 但被上面的 min-height: 5rem 挡住。这里同步降低保底并隐藏列表，
+    // 保障折叠按钮有效。
+    &:has(button.toc-header.collapsed) {
+      min-height: 0;
+      flex: 0 0 1.5rem;
+
+      & > ul.toc-content {
+        display: none;
+      }
+    }
+
     & > ul.toc-content {
       overflow-y: auto;
       overscroll-behavior: contain;
@@ -96,6 +108,13 @@
     min-width: 0;
   }
 
+  // 修复 TOC 不显示：框架的 .page>#quartz-body .sidebar.right>.toc{display:none}
+  // 优先级 (0,4,1) 高于 .sidebar.right>*。用同等前缀 + :not() 抬高优先级
+  // 恢复显示，TOC 参与底栏四面板布局。
+  .page > #quartz-body:not(.foo) .sidebar.right > .toc {
+    display: flex; // 恢复 TOC 组件自身的 flex 布局
+  }
+
   // 修复 b)：recent-notes 标题固定、列表滚动，严格限制在 24rem 内
   .sidebar.right > .recent-notes {
     display: flex;
@@ -118,14 +137,47 @@
     overflow: hidden;
   }
 
+  // TOC 在底栏同样为纵向 flex：标题可折叠，列表内部滚动
+  .sidebar.right > .toc {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    & > ul.toc-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    // 折叠态：隐藏列表
+    &:has(button.toc-header.collapsed) > ul.toc-content {
+      display: none;
+    }
+  }
+
   // 图谱容器在窄屏保持 250px 内高
   .sidebar.right > .graph > .graph-outer {
     height: 250px;
   }
 }
 
-// ---------- 3. 统一右栏三个文字栏的字号与节奏（所有断点）----------
-// recent-notes 的条目标题用的是 h3 标签（继承基础样式 1.12rem），
+// ---------- 3. 统一右栏四个栏目的标题与条目字号（所有断点）----------
+// 标题：组件间不一致——graph 的 h3 上边距为 0，recent-notes 的 h3
+// 自带 margin: 0.5rem 0 0（导致底栏模式下标题不在同一水平线）。
+// 统一：所有栏目标题 margin: 0、字号 1rem。
+
+.sidebar.right > .graph > h3,
+.sidebar.right > .toc > button.toc-header {
+  margin-top: 0;
+}
+
+.sidebar.right > .recent-notes > h3,
+.sidebar.right > .backlinks > h3 {
+  margin: 0;
+}
+
+// 条目字号：recent-notes 的条目标题是 h3 标签（继承基础样式 1.12rem），
 // 而 toc / backlinks 的条目是 a 标签——统一为一致字号。
 
 .sidebar.right > .toc > ul.toc-content > li > a,
