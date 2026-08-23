@@ -1,7 +1,7 @@
-# Obsidian 个人配置
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/graph.json
+# Obsidian 个人配置（.obsidian 在 content/ 下，路径必须匹配实际位置）
+content/.obsidian/workspace.json
+content/.obsidian/workspace-mobile.json
+content/.obsidian/graph.json
 
 # Quartz 构建产物
 public/
